@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysqlclient
+  namespace: mysqltools
+spec:
+  selector:
+    matchLabels:
+      app: mysqlclient
+  template:
+    metadata:
+      labels:
+        app: mysqlclient
+    spec:
+      containers:
+      - name: mysqlclient
+        image: mysql:8.0-debian
+        # command: [ "mysql" ] 
+        # args: [ "-hsome.mysql.host -usome-mysql-user -pPASSWORD" ]
+        command: [ "/bin/bash", "-c", "--" ]
+        args: [ "while true; do sleep 30; done;" ]
+        resources:
+          limits:
+            memory: "1024Mi"
+            cpu: "10m"
